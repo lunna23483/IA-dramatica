@@ -3,6 +3,10 @@ from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 
+@app.route("/")
+def home():
+    return "🔥 SITIO LUNNA AGUAS — IA DRAMÁTICA ONLINE 🔥"
+
 respuestas_dramaticas = [
     "¿En serio me preguntas eso? 💔 Me duele el alma...",
     "Estoy decepcionada... pero continúa 😒",
