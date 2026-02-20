@@ -7,7 +7,7 @@ CORS(app)
 
 @app.route("/")
 def home():
-    return "🔥 SITIO LUNNA AGUAS — IA DRAMÁTICA ONLINE 🔥"
+    return "🔥 SITIO LUNNA AGUAS — IA DRAMÁTICA CORPORATIVA 🔥"
 
 # --------- RESPUESTAS DRAMÁTICAS ---------
 respuestas_dramaticas = [
@@ -31,6 +31,24 @@ chistes_malos = [
     "¿Por qué los pájaros no usan Facebook? Porque ya tienen Twitter 🐦",
     "¿Cuál es el animal más antiguo? La cebra, porque está en blanco y negro 🖤🤍",
     "¿Cómo organizan los gatos su fiesta? ¡Miau-sica y ratón! 🐱"
+]
+
+# --------- CHISTES CORPORATIVOS ---------
+chistes_corporativos = [
+    "¿Por qué el jefe llevó una escalera a la oficina? Porque quería subir el rendimiento 📈😂",
+    "En esta empresa no hay estrés… hay 'optimización emocional' 😌",
+    "No fue un error, fue una oportunidad de mejora 😎",
+    "El café no es un gasto… es inversión estratégica ☕📊",
+    "Aquí no gritamos… hacemos reuniones urgentes 😭"
+]
+
+# --------- HUMOR SST ---------
+respuestas_sst = [
+    "Recuerda usar tus EPP antes de hablar conmigo 😌🦺",
+    "Eso requiere una matriz de riesgos urgente 📋⚠️",
+    "Nivel de riesgo: alto… ponte el casco emocional 🪖",
+    "Voy a reportar esto en el comité de convivencia 😤",
+    "Eso necesita una pausa activa inmediatamente 🧘‍♀️"
 ]
 
 # --------- RESPUESTAS ENOJADAS ---------
@@ -67,9 +85,17 @@ def chat():
     data = request.json
     mensaje = data.get("mensaje", "").lower()
 
-    # Palabras clave para chistes
-    if "chiste" in mensaje or "cuentame" in mensaje:
+    # Palabras clave para chistes normales
+    if "chiste" in mensaje:
         return jsonify({"respuesta": random.choice(chistes_malos)})
+
+    # Palabras clave corporativas
+    if "oficina" in mensaje or "jefe" in mensaje or "reunión" in mensaje or "trabajo" in mensaje:
+        return jsonify({"respuesta": random.choice(chistes_corporativos)})
+
+    # Palabras clave SST
+    if "seguridad" in mensaje or "riesgo" in mensaje or "sst" in mensaje or "accidente" in mensaje:
+        return jsonify({"respuesta": random.choice(respuestas_sst)})
 
     # Palabras clave para enojos
     if "tonto" in mensaje or "fea" in mensaje or "idiota" in mensaje:
@@ -77,20 +103,21 @@ def chat():
 
     # Palabras clave para saludos
     if "hola" in mensaje or "hey" in mensaje:
-        return jsonify({"respuesta": "Hola… pero no me ilusiones 😔✨"})
+        return jsonify({"respuesta": "Hola… pero cumple con el protocolo primero 😔🦺"})
 
     # Palabras clave para halagos
     if "bonito" in mensaje or "lindo" in mensaje or "me gustas" in mensaje:
         return jsonify({"respuesta": random.choice(respuestas_halagos)})
 
-    # Palabras clave curiosas
+    # Preguntas
     if "qué" in mensaje or "por qué" in mensaje or "cómo" in mensaje:
         return jsonify({"respuesta": random.choice(respuestas_curiosas)})
 
-    # Si no coincide nada, responde dramáticamente
+    # Default dramático
     return jsonify({"respuesta": random.choice(respuestas_dramaticas)})
 
 if __name__ == "__main__":
     app.run(debug=True)
+
 
 
