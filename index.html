@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>IA Dramática 🤡</title>
+<style>
+body {
+    background: linear-gradient(45deg, #ff00cc, #3333ff);
+    font-family: Comic Sans MS;
+    text-align: center;
+    color: white;
+}
+
+#chat {
+    width: 60%;
+    margin: auto;
+    background: rgba(0,0,0,0.5);
+    padding: 20px;
+    border-radius: 20px;
+}
+
+button {
+    padding: 10px;
+    background: yellow;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+</style>
+</head>
+<body>
+
+<h1>🤡 IA Dramática Tóxica</h1>
+
+<div id="chat">
+    <div id="mensajes"></div>
+    <input type="text" id="input" placeholder="Habla con la diva...">
+    <button onclick="enviar()">Enviar</button>
+</div>
+
+<script>
+async function enviar() {
+    let input = document.getElementById("input").value;
+    let mensajes = document.getElementById("mensajes");
+
+    mensajes.innerHTML += "<p><b>Tú:</b> " + input + "</p>";
+
+    let response = await fetch("https://TU-URL-RENDER.onrender.com/chat", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({mensaje: input})
+    });
+
+    let data = await response.json();
+
+    mensajes.innerHTML += "<p><b>IA:</b> " + data.respuesta + "</p>";
+
+    document.getElementById("input").value = "";
+}
+</script>
+
+</body>
+</html>
